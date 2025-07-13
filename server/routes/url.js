@@ -2,7 +2,7 @@ const { Router } = require("express")
 const urlRouter = Router();
 const { urlModel } = require('../models/db')
 
-urlRouter.post("/test", async (req, res) => {
+urlRouter.post("/trim", async (req, res) => {
     const longUrl = req.body.longUrl
 
     //Algoorithm for generating the shortCode
@@ -39,7 +39,7 @@ urlRouter.post("/test", async (req, res) => {
             regenaratedCode: shortCode
         })
     } else {
-        const shortUrl = longUrl + "/" + shortCode
+        const shortUrl = "http://localhost:3000/api/v1/url/trim/" + shortCode //localhost for dev testing
         const urlData = await urlModel.create({
             longUrl: longUrl,
             shortCode: shortCode,
@@ -50,6 +50,21 @@ urlRouter.post("/test", async (req, res) => {
             message: "url saved!",
             urlData
         })
+    }
+})
+
+// Redirect from short -> long url logic
+urlRouter.get("/trim/:shortCode", async (req, res) => {
+    const shortCode = req.params.shortCode
+
+    const originalUrl = await urlModel.findOne({
+        shortCode: shortCode
+    })
+
+    if (originalUrl) {
+        res.redirect(302, originalUrl.longUrl)
+    } else {
+        res.status(404).send("Short URL Not Found")
     }
 })
 
