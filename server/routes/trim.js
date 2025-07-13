@@ -62,6 +62,10 @@ urlRouter.get("/trim/:shortCode", async (req, res) => {
     })
 
     if (originalUrl) {
+        originalUrl.linkClicks += 1
+
+        await originalUrl.save()
+
         res.redirect(302, originalUrl.longUrl)
     } else {
         res.status(404).send("Short URL Not Found")
