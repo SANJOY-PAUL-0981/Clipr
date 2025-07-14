@@ -18,14 +18,14 @@ export const AnalyticsPage = () => {
     }, [error]);
 
     return (
-        <div className="bg-[#050607e1] h-dvh flex flex-col justify-between relative">
+        <div className="bg-[#050607e1] h-dvh flex flex-col justify-between">
             <Navbar />
             <Search setError={setError} />
             <AboutShortCode />
             <Footer />
 
             {error && (
-                <p className="absolute top-20 right-28 text-red-500 border border-red-500 rounded-md p-5 bg-black/80 font-inconsol shadow-md z-50">
+                <p className="absolute bottom-5 right-5 text-red-500 border border-red-500 rounded-md p-5 bg-black/80 font-inconsol shadow-md z-50">
                     {error}
                 </p>
             )}

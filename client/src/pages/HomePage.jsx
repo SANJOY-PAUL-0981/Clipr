@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 
 export const HomePage = () => {
     const [error, setError] = useState('');
+    const [copied, setCopied] = useState(false)
 
     useEffect(() => {
         if (error) {
@@ -17,19 +18,36 @@ export const HomePage = () => {
             return () => clearTimeout(timer); // Cleanup on unmount
         }
     }, [error]);
+
+    useEffect(() => {
+        if (copied) {
+            const timer = setTimeout(() => {
+                setCopied(false);
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [copied]);
+
     return (
         <div className='bg-[#050607e1] h-dvh flex flex-col justify-between'>
             <Navbar setError={setError} />
             <div className='flex flex-col gap-10 justify-center'>
                 <HeroElement />
-                <InputBox />
+                <InputBox setError={setError} setCopied={setCopied} />
                 <ClickAnalyticsButton />
             </div>
             <Footer />
 
             {error && (
-                <p className="absolute top-20 right-28 text-red-500 border border-red-500 rounded-md p-5 bg-black/80 font-inconsol shadow-md z-50">
+                <p className="absolute bottom-5 right-5 text-red-500 border border-red-500 rounded-md p-5 bg-black/80 font-inconsol shadow-md z-50">
                     {error}
+                </p>
+            )}
+
+            {copied && (
+                <p className="absolute bottom-5 right-5 text-green-400 border border-green-400 rounded-md p-5 bg-black/80 font-inconsol shadow-md z-50">
+                    Copied!
                 </p>
             )}
         </div>
