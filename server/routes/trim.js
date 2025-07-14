@@ -104,10 +104,10 @@ urlRouter.get("/linkClicks", async (req, res) => {
             totalClicks
         })
     }catch(error){
-        return res.status(500).json({
-            message: "Internal Server Error",
+        return res.status(404).json({
+            message: "No Such Short Code Found",
             error: error.message,
-            code: 500
+            code: 404
         })
     }
 });
