@@ -1,19 +1,20 @@
-const { Router } = require("express")
+const { Router } = require("express");
 const urlRouter = Router();
-const { urlModel } = require('../models/db')
+const { urlModel } = require('../models/db');
 
-try {
-    urlRouter.post("/trim", async (req, res) => {
-        const longUrl = req.body.longUrl
+// POST /trim → create short URL
+urlRouter.post("/trim", async (req, res) => {
+    try {
+        const longUrl = req.body.longUrl;
 
         if (!longUrl || typeof longUrl !== "string" || !longUrl.startsWith("http")) {
             return res.status(400).json({
                 message: "Invalid URL",
                 code: 400
-            })
+            });
         }
 
-        //Algoorithm for generating the shortCode
+        // Algorithm for generating shortCode
         const shortCodeGeneration = () => {
             let limit = 6;
             let shortCode = "";
@@ -23,68 +24,85 @@ try {
 
                 if (fullNum >= 50) {
                     const upperCaseASCII = Math.floor(Math.random() * (90 - 65 + 1)) + 65;
-                    const upperCase = String.fromCharCode(upperCaseASCII);
-                    shortCode += upperCase;
+                    shortCode += String.fromCharCode(upperCaseASCII);
                 } else {
                     const lowerCaseASCII = Math.floor(Math.random() * (122 - 97 + 1)) + 97;
-                    const lowerCase = String.fromCharCode(lowerCaseASCII);
-                    shortCode += lowerCase;
+                    shortCode += String.fromCharCode(lowerCaseASCII);
                 }
             }
             return shortCode;
-        }
+        };
 
-        let shortCode = shortCodeGeneration()
+        let shortCode = shortCodeGeneration();
 
-        const verifyShortCode = await urlModel.findOne({
-            shortCode: shortCode
-        })
+        const verifyShortCode = await urlModel.findOne({ shortCode });
 
         if (verifyShortCode) {
-            shortCode = shortCodeGeneration()
+            shortCode = shortCodeGeneration();
             return res.json({
-                message: "Short Code Already Exists, lets regenate",
+                message: "Short Code Already Exists, lets regenerate",
                 regenaratedCode: shortCode
-            })
+            });
         } else {
-            const shortUrl = "http://localhost:3000/api/v1/url/trim/" + shortCode //localhost for dev testing
+            const shortUrl = "http://localhost:3000/api/v1/url/trim/" + shortCode;
             const urlData = await urlModel.create({
-                longUrl: longUrl,
-                shortCode: shortCode,
-                shortUrl: shortUrl
-            })
+                longUrl,
+                shortCode,
+                shortUrl
+            });
 
-            res.json({
-                message: "url saved!",
+            return res.json({
+                message: "URL saved!",
                 urlData
-            })
+            });
         }
-    })
-} catch (error) {
-    return res.status(500).json({
-        message: "Internal Server Error",
-        error: error.message,
-        code: 500
-    })
-}
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message,
+            code: 500
+        });
+    }
+});
 
-// Redirect from short -> long url logic
+// GET /trim/:shortCode → redirect to long URL
 urlRouter.get("/trim/:shortCode", async (req, res) => {
     try {
-        const shortCode = req.params.shortCode
+        const shortCode = req.params.shortCode;
 
-        const originalUrl = await urlModel.findOne({
+        const originalUrl = await urlModel.findOne({ shortCode });
+
+        if (originalUrl) {
+            originalUrl.linkClicks += 1;
+            await originalUrl.save();
+
+            return res.redirect(302, originalUrl.longUrl);
+        } else {
+            return res.status(404).send("Short URL Not Found");
+        }
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message,
+            code: 500
+        });
+    }
+});
+
+// Link Clicks
+urlRouter.get("/linkClicks", async (req, res) => {
+    try {
+        const shortCode = req.body.shortCode
+
+        const url = await urlModel.findOne({
             shortCode: shortCode
         })
 
-        if (originalUrl) {
-            originalUrl.linkClicks += 1
-            await originalUrl.save()
+        const totalClicks = url.linkClicks
 
-            res.redirect(302, originalUrl.longUrl)
-        } else {
-            res.status(404).send("Short URL Not Found")
-        }
+        return res.json({
+            totalClicks
+        })
     }catch(error){
         return res.status(500).json({
             message: "Internal Server Error",
@@ -92,8 +110,9 @@ urlRouter.get("/trim/:shortCode", async (req, res) => {
             code: 500
         })
     }
-})
+});
 
+// Export the router properly
 module.exports = ({
     urlRouter
-})
+});
