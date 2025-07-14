@@ -1,8 +1,11 @@
 import { IoIosCut } from "react-icons/io";
+import { FaRegClipboard } from "react-icons/fa";
 import axios from "axios"
 import { useEffect, useState } from "react";
 
 export const InputBox = () => {
+
+
     return (
         <div>
             <div className="flex justify-center gap-10 items-center">
