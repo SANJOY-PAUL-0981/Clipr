@@ -90,9 +90,15 @@ urlRouter.get("/trim/:shortCode", async (req, res) => {
 });
 
 // Link Clicks
-urlRouter.get("/linkClicks", async (req, res) => {
+urlRouter.post("/linkClicks", async (req, res) => {
     try {
         const shortCode = req.body.shortCode
+
+        if(!shortCode){
+            return res.status(400).json({
+                message: "Enter Short Code"
+            })
+        }
 
         const url = await urlModel.findOne({
             shortCode: shortCode
