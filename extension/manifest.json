@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Clipr",
+    "author": "Sanjoy",
+    "version": "1.0",
+    "description": "Clipr is an extension which helps you to trim your long URLs",
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "16": "icons/icon16.png",
+        "32": "icons/icon32.png",
+        "64": "icons/icon64.png",
+        "128": "icons/icon128.png"
+    },
+    "permissions": [
+        "scripting"
+    ],
+    "host_permissions": [
+        "http://localhost:3000/api/v1/url*"
+    ]
+}
