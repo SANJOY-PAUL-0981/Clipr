@@ -31,7 +31,7 @@ export const HomePage = () => {
 
     return (
         <div className='bg-[#050607e1] h-dvh flex flex-col justify-between'>
-            <Navbar setError={setError} />
+            <Navbar />
             <div className='flex flex-col gap-10 justify-center'>
                 <HeroElement />
                 <InputBox setError={setError} setCopied={setCopied} />
