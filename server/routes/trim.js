@@ -119,7 +119,7 @@ urlRouter.post("/linkClicks", async (req, res) => {
 });
 
 // for UptimeRoot
-app.get("/ping", (req, res) => {
+urlRouter.get("/ping", (req, res) => {
   res.send("pong");
 });
 
