@@ -2,15 +2,16 @@ import { BsSearch } from "react-icons/bs";
 import axios from "axios"
 import { useEffect, useState } from "react";
 
-export const Search = ({setError}) => {
+export const Search = ({ setError }) => {
     const [clicks, setClicks] = useState(null)
     const [shortCode, setShortCode] = useState('')
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
     const handelClicks = async () => {
         try {
             console.log("API call happening")
 
-            const response = await axios.post("http://localhost:3000/api/v1/url/linkClicks", {
+            const response = await axios.post(`${baseUrl}linkClicks`, {
                 shortCode: shortCode.trim()
             })
             setClicks(response.data.totalClicks)

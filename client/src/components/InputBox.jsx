@@ -7,10 +7,11 @@ export const InputBox = ({ setError, setCopied }) => {
     const [longUrl, setLongUrl] = useState('')
     const [shortUrl, setShortUrl] = useState(null)
     const [textToCopy, setTextToCopy] = useState('');
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
     const shortUrlGenerationHandeler = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/url/trim", {
+            const response = await axios.post(`${baseUrl}trim`, {
                 longUrl: longUrl.trim()
             })
 

@@ -11,8 +11,9 @@ app.use(express.json())
 app.use("/api/v1/url", urlRouter)
 
 const main = async () => {
+    const PORT = process.env.PORT || 3000
     await mongoose.connect(process.env.MONGO_URL)
-    app.listen(3000)
+    app.listen(PORT)
     console.log("Successfully Connected with Mongo")
     console.log("App is listening on port 3000")
 }
