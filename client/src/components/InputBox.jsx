@@ -11,7 +11,7 @@ export const InputBox = ({ setError, setCopied }) => {
 
     const shortUrlGenerationHandeler = async () => {
         try {
-            const response = await axios.post(`${baseUrl}trim`, {
+            const response = await axios.post(`${baseUrl}/url/trim`, {
                 longUrl: longUrl.trim()
             })
 

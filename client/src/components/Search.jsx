@@ -11,7 +11,7 @@ export const Search = ({ setError }) => {
         try {
             console.log("API call happening")
 
-            const response = await axios.post(`${baseUrl}linkClicks`, {
+            const response = await axios.post(`${baseUrl}/url/linkClicks`, {
                 shortCode: shortCode.trim()
             })
             setClicks(response.data.totalClicks)
