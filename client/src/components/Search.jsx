@@ -17,7 +17,7 @@ export const Search = ({ setError }) => {
             setClicks(response.data.totalClicks)
             setError('') //clears any previous error message
         } catch (err) {
-            setError(err.response.data.message)
+            setError(err?.response?.data?.message || "Something went wrong")
             setClicks(null) //clears previous click result on failure
         }
     }

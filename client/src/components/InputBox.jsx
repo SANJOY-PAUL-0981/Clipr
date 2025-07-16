@@ -19,7 +19,7 @@ export const InputBox = ({ setError, setCopied }) => {
             setTextToCopy(response.data.urlData.shortUrl)
             setError('')
         } catch (err) {
-            setError(err.response.data.message)
+            setError(err?.response?.data?.message || "Something went wrong")
             setShortUrl(null)
         }
     }
