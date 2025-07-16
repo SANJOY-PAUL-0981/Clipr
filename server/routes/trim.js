@@ -44,7 +44,7 @@ urlRouter.post("/trim", async (req, res) => {
                 regenaratedCode: shortCode
             });
         } else {
-            const shortUrl = "http://localhost:3000/api/v1/url/trim/" + shortCode;
+            const shortUrl = `${process.env.BASE_URL}/api/v1/url/trim/` + shortCode;
             const urlData = await urlModel.create({
                 longUrl,
                 shortCode,
