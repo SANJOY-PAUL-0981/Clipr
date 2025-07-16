@@ -118,6 +118,12 @@ urlRouter.post("/linkClicks", async (req, res) => {
     }
 });
 
+// for UptimeRoot
+app.get("/ping", (req, res) => {
+  res.send("pong");
+});
+
+
 // Export the router properly
 module.exports = ({
     urlRouter
