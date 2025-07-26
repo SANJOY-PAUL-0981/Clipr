@@ -37,24 +37,24 @@ export const InputBox = ({ setError, setCopied }) => {
 
     return (
         <div>
-            <div className="flex justify-center gap-10 items-center">
+            <div className="flex sm:flex-row justify-center gap-4 sm:gap-10 items-center px-4">
                 <input
                     type="text"
                     value={longUrl}
                     onChange={(e) => setLongUrl(e.target.value)}
                     placeholder="Enter URL"
-                    className="bg-[#212118e1] border border-[#4d4d4de1] w-[630px] h-16 text-white font-inconsol px-4 rounded-md text-lg"
+                    className="bg-[#212118e1] border border-[#4d4d4de1] w-full sm:w-[630px] h-14 sm:h-16 text-white font-inconsol px-4 rounded-md text-base sm:text-lg"
                 />
                 <button
                     onClick={shortUrlGenerationHandeler}
-                    className="bg-white text-black flex items-center justify-center gap-2 text-xl font-bold font-pop rounded-md px-10 py-[17px] border border-white hover:bg-transparent hover:text-white duration-300 ease-in-out cursor-pointer">
+                    className="bg-white text-black flex items-center justify-center gap-2 text-lg sm:text-xl font-bold font-pop rounded-md px-6 sm:px-10 py-4 sm:py-[17px] border border-white hover:bg-transparent hover:text-white duration-300 ease-in-out cursor-pointer">
                     Trim <IoIosCut />
                 </button>
             </div>
 
             {shortUrl !== null &&
-                <div className="flex justify-center items-center mt-10">
-                    <p className="text-sky-400 font-inconsol flex items-center justify-center font-semibold gap-5 border rounded-md p-4 bg-black/50 border-sky-400">
+                <div className="flex justify-center items-center mt-6 sm:mt-10 px-4">
+                    <p className="text-sky-400 font-inconsol flex items-center justify-center font-semibold gap-4 border rounded-md p-4 bg-black/50 border-sky-400 w-full sm:w-auto">
                         {shortUrl} <FaRegClipboard onClick={copyHandeler} className="cursor-pointer" />
                     </p>
                 </div>

@@ -18,7 +18,7 @@ export const AnalyticsPage = () => {
     }, [error]);
 
     return (
-        <div className="bg-[#050607e1] h-dvh flex flex-col justify-between">
+        <div className="bg-[#050607e1] min-h-screen flex flex-col justify-between">
             <Navbar />
             <Search setError={setError} />
             <AboutShortCode />

@@ -30,7 +30,7 @@ export const HomePage = () => {
     }, [copied]);
 
     return (
-        <div className='bg-[#050607e1] h-dvh flex flex-col justify-between'>
+        <div className='bg-[#050607e1] min-h-screen flex flex-col justify-between'>
             <Navbar />
             <div className='flex flex-col gap-10 justify-center'>
                 <HeroElement />

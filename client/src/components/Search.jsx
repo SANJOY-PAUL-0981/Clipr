@@ -24,32 +24,35 @@ export const Search = ({ setError }) => {
 
     return (
         <>
-            <div className="relative">
-                <div className="flex justify-center items-center">
-                    <div className="flex flex-col gap-3">
-                        <p className="text-white font-inconsol font-bold text-lg">Enter Your Short Code</p>
-                        <div className="text-white flex gap-5">
+            <div className="px-4 py-8">
+                <div className="flex justify-center">
+                    <div className="flex flex-col gap-6 w-full max-w-3xl">
+                        <p className="text-white font-inconsol font-bold text-base sm:text-lg">
+                            Enter Your Short Code
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4">
                             <input
                                 type="text"
                                 value={shortCode}
                                 onChange={(e) => setShortCode(e.target.value)}
-                                className="bg-[#212118e1] border border-[#4d4d4de1] w-[630px] h-16 text-white font-inconsol px-4 rounded-md text-lg"
+                                className="bg-[#212118e1] border border-[#4d4d4de1] w-full h-14 sm:h-16 text-white font-inconsol px-4 rounded-md text-base sm:text-lg"
                             />
                             <button
                                 onClick={handelClicks}
-                                className="bg-white text-black flex items-center justify-center gap-4 text-xl font-bold font-pop rounded-md px-10 py-[17px] cursor-pointer hover:bg-transparent border border-white hover:text-white duration-300 ease-in-out"
+                                className="bg-white text-black flex items-center justify-center gap-3 text-lg sm:text-xl font-bold font-pop rounded-md px-6 py-4 sm:px-10 sm:py-[17px] cursor-pointer hover:bg-transparent border border-white hover:text-white duration-300 ease-in-out"
                             >
                                 Search <BsSearch />
                             </button>
                         </div>
                         {clicks !== null && (
-                            <p className="text-white text-center text-3xl font-bold font-inconsol">
+                            <p className="text-white text-center text-2xl sm:text-3xl font-bold font-inconsol mt-4">
                                 Total Clicks: {clicks}
                             </p>
                         )}
                     </div>
                 </div>
             </div>
+
         </>
     );
 
